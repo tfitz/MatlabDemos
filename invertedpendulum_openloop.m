@@ -19,8 +19,9 @@ nframes = 60;
 
 %%
 % Animate the solution?
-flag.animate = false;
-flag.output.gif = false;
+flag.animate       = true;
+flag.output.gif    = false;
+flag.includelinear = false;
 
 %% define the nonlinear equation of motion
 % Here "x" is a stand-in for the two states of the system $\theta$ and 
@@ -108,10 +109,31 @@ if( flag.animate )
     % Let's setup subplot 2
     ax2 = subplot(1,3,3,'Parent',fig);
     hold(ax2, 'on');
-    plot(ax2, time, x(:,1)*180/pi, 'b-','LineWidth', 2)
-    xlabel(ax2, 'time [s]', 'FontSize', 12)
-    ylabel(ax2, 'Angular position  \theta [deg]', 'FontSize', 12)
+    xlabel(ax2, 'time [s]', 'FontSize', 12);
+    ylabel(ax2, 'Angular position  \theta [deg]', 'FontSize', 12);
     
+    %%
+    % Plot the nonlinear response
+    plot(ax2, time, x(:,1)*180/pi, ...
+        'b-', ...
+        'LineWidth', 2,...
+        'DisplayName','Nonlinear response');
+    
+    %%
+    % Calculate and plot the linearized response
+    if( flag.includelinear )
+        omega = sqrt( (a^2*k - m*g*L)/(m*L^2) );
+        sol_linear = ode45(@(t,x) [0,1;-omega^2, 0]*x, [0, tf], x0);
+        theta_linear = deval(sol_linear,time,1);
+        plot(ax2, time, theta_linear*180/pi, ...
+            'r--', ...
+            'LineWidth', 2, ...
+            'DisplayName', 'linear prediction');
+        legend(ax2,{});
+    end
+
+    %%
+    % Place the tracer dot on the response
     h_trace =  patch('Parent', ax2,...
         'XData', 0,...
         'YData', x0(1)*180/pi,...
@@ -168,6 +190,5 @@ if( flag.animate )
         end
 
     end   
-          
           
 end
