@@ -21,6 +21,7 @@
 
 ## Matlab
 *.m    text
+*.mlx  binary
 *.mat  binary
 *.slx  binary
 *.fig  binary
