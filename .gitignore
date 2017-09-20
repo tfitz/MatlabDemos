@@ -1,0 +1,50 @@
+# Ignore file list
+
+## Specific files
+
+## General files
+*~
+~*
+\#*\#
+.$*$
+*.asv
+.~*
+.#*
+
+
+## LaTeX files
+*.pdf
+auto/
+*.synctex.gz
+*.bak
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.spl
+*.dvi
+*.lof
+*.lop
+*.lot
+*.toc
+*.idx
+*.ilg
+*.ind
+*.bcf
+*.run.xml
+*.tdo
+*.fls
+*.fdb_latexmk
+*.xdv
+*.bib.sav
+
+
+## Windows files
+Thumbs.db
+
+## IPython files
+.ipynb_checkpoints/
+
+## OneNote files
+OneNote_RecycleBin/
